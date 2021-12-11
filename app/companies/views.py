@@ -16,14 +16,3 @@ class Company(View):
         jd= json.loads(request.body)
         
         return JsonResponse(jd)
-    
-    def post(self, request):
-        pass 
-    
-    
-    def put(self, request):
-        pass 
-    
-    def update(self, request):
-        pass 
-    
