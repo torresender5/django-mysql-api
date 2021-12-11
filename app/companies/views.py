@@ -27,5 +27,3 @@ class Company(View):
     def update(self, request):
         pass 
     
-    def delete(self, reset):
-        pass
