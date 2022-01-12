@@ -7,10 +7,10 @@ class DoctorSerializers(serializers.ModelSerializer):
     class Meta:
         model= DoctorModel
         fields= ( 
-            # '_id',
-            # 'id',
+            '_id',
             'name',
             'lastname',
+            'identification',
             'office_address',
             'phone',
             'email'
