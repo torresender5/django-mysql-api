@@ -19,16 +19,15 @@ class DoctorView(View):
     
     def get(self, request):
         try:
-        
-            name = request.GET.get('name', None)
+            req = request or {}
+            print(req)
+            print("rerq",req.GET.get('name', None))
+            name = req.GET['name']
             print(name)
             doctors={}
             if name is not None:
-                
-                doctors = DoctorModel.objects.filter(name=name)[0]
-                for item in doctors:
-                    print(item)
-                   
+                print('adentro')
+                doctors = DoctorModel.objects.filter(name=name)
                 print('name',doctors)
             else:
                 doctors = DoctorModel.objects.all()
@@ -36,24 +35,23 @@ class DoctorView(View):
                     
                     print(item)
                     # for i in item:
-                        # print(i['_id'])
-                # print('all', list(doctors))
+                    #     print(i['_id'])
+                print('all', list(doctors))
             
             doctors_serializar = DoctorSerializers(doctors, many=True)
-            print(doctors_serializar)
             return JsonResponse(doctors_serializar.data, safe= False)
         except Exception as e:
             print(e)
             return JsonResponse(e)
     
-    # def post(self, request):
-    #     doctor = JSONParser().parse(request)
-    #     print(doctor)
-    #     doctor_serializer = DoctorSerializers(data=doctor)
-    #     if doctor_serializer.is_valid():
-    #         doctor_serializer.save()
-    #         return JsonResponse(doctor_serializer.data, status=status.HTTP_201_CREATED)
-    #     return JsonResponse(doctor_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def post(self, request):
+        doctor = JSONParser().parse(request)
+        print(doctor)
+        doctor_serializer = DoctorSerializers(data=doctor)
+        if doctor_serializer.is_valid():
+            doctor_serializer.save()
+            return JsonResponse(doctor_serializer.data, status=status.HTTP_201_CREATED)
+        return JsonResponse(doctor_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
         
         
